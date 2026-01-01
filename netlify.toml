@@ -33,7 +33,7 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://embed.tawk.to https://*.tawk.to; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: wss://*.tawk.to; frame-src 'self' https://www.google.com/ https://www.google.com;"
+    Content-Security-Policy = "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; style-src 'self' 'unsafe-inline' https://*; font-src 'self' https://*; img-src 'self' data: https: https://*; connect-src 'self' https: wss://*; frame-src 'self' https://* data:;"
     Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]

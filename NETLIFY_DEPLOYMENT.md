@@ -17,9 +17,13 @@
 
 Netlify should auto-detect these settings from `netlify.toml`, but verify:
 
-- **Build command**: `npm run build`
-- **Publish directory**: `.next` (handled by @netlify/plugin-nextjs)
-- **Node version**: 18
+1. Go to **Site settings** > **Build & deploy** > **Build settings**
+2. Verify or set:
+   - **Build command**: `npm run build`
+   - **Publish directory**: **LEAVE EMPTY** (the @netlify/plugin-nextjs plugin handles this automatically)
+   - **Base directory**: Leave as root `/` or empty
+3. **IMPORTANT**: If you see a publish directory set in the UI, **remove it** or set it to empty. The plugin will handle it automatically.
+4. **Node version**: 18 (set in `netlify.toml` or in **Environment variables**)
 
 ## Step 3: Add Environment Variables
 

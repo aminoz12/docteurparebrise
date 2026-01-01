@@ -5,7 +5,7 @@ async function getSheetsClient() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
     },
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
@@ -63,13 +63,13 @@ async function getSheetInfo(sheets, spreadsheetId) {
       },
     });
     
-    const newSheetId = createResponse.data.replies?.[0]?.addSheet?.properties?.sheetId;
+    const newSheetId = createResponse.data.replies && createResponse.data.replies[0] && createResponse.data.replies[0].addSheet && createResponse.data.replies[0].addSheet.properties && createResponse.data.replies[0].addSheet.properties.sheetId;
     
     return {
       name: preferredSheetName,
       sheetId: newSheetId,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error getting sheet name:', error);
     // Fallback to preferred name
     return {
@@ -138,11 +138,18 @@ async function ensureHeaders(sheets, spreadsheetId, sheetName) {
 }
 
 exports.handler = async function(event, context) {
+  console.log('Function invoked with method:', event.httpMethod);
+  console.log('Environment check - GOOGLE_SHEET_ID:', process.env.GOOGLE_SHEET_ID ? 'exists' : 'missing');
+  console.log('Environment check - GOOGLE_SERVICE_ACCOUNT_EMAIL:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ? 'exists' : 'missing');
+  console.log('Environment check - GOOGLE_PRIVATE_KEY:', process.env.GOOGLE_PRIVATE_KEY ? 'exists' : 'missing');
+  
   const { httpMethod } = event;
 
   if (httpMethod === 'POST') {
+    console.log('Processing POST request');
     try {
       const data = JSON.parse(event.body);
+      console.log('Received data:', data);
 
       // Validate required fields
       if (!data.service || !data.date || !data.time) {
@@ -294,7 +301,7 @@ exports.handler = async function(event, context) {
       };
     } catch (error) {
       console.error('Error saving appointment:', error);
-      const errorMessage = error?.message || 'Failed to save appointment';
+      const errorMessage = error && error.message ? error.message : 'Failed to save appointment';
       return {
         statusCode: 500,
         body: JSON.stringify({ error: errorMessage })

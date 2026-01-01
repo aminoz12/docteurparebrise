@@ -1,7 +1,8 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { createCalendarEventUrl, type ReservationPayload } from '@/lib/google-calendar';
+import { FormEvent, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { type ReservationPayload } from '@/lib/google-calendar';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,6 +26,7 @@ const timeSlots = [
 type LocationChoice = 'atelier' | 'domicile';
 
 export function RendezvousForm() {
+  const router = useRouter();
   const [service, setService] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -33,6 +35,16 @@ export function RendezvousForm() {
   const [customerPhone, setCustomerPhone] = useState('');
   const [notes, setNotes] = useState('');
   const [status, setStatus] = useState<'idle' | 'success' | 'loading' | 'error'>('idle');
+
+  // Redirect to contact page after 5 seconds when success
+  useEffect(() => {
+    if (status === 'success') {
+      const timer = setTimeout(() => {
+        router.push('/contact');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, router]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -63,18 +75,15 @@ export function RendezvousForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save appointment');
-      }
-
-      // Still open Google Calendar
-      const url = createCalendarEventUrl(payload);
-      if (typeof window !== 'undefined') {
-        window.open(url, '_blank', 'noopener,noreferrer');
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.error || `Failed to save appointment (${response.status})`;
+        console.error('API Error:', errorMessage);
+        throw new Error(errorMessage);
       }
 
       setStatus('success');
       
-      // Reset form after success
+      // Reset form after success (before redirect)
       setTimeout(() => {
         setService('');
         setDate('');
@@ -83,7 +92,6 @@ export function RendezvousForm() {
         setCustomerName('');
         setCustomerPhone('');
         setNotes('');
-        setStatus('idle');
       }, 3000);
     } catch (error) {
       console.error('Error saving appointment:', error);
@@ -105,9 +113,7 @@ export function RendezvousForm() {
       >
         <div className="space-y-2 mb-6">
           <h2 className="text-2xl font-black uppercase text-neutral-900 font-jura">Planifier votre rendez-vous</h2>
-          <p className="text-sm font-bold text-neutral-600 font-jura">
-            Renseignez quelques informations pour générer un rendez-vous pré-rempli dans votre Google Calendar.
-          </p>
+       
         </div>
 
         {/* Service Selection */}
@@ -273,14 +279,13 @@ export function RendezvousForm() {
             className="mt-4 rounded-xl border-2 border-accent/50 bg-accent/10 px-6 py-4 font-jura"
           >
             <div className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="font-extrabold text-neutral-900 mb-1 font-jura">
                   Rendez-vous enregistré avec succès !
                 </p>
                 <p className="text-sm font-bold text-neutral-700 font-jura">
-                  Vos informations ont été sauvegardées. Un nouvel onglet Google Calendar s&apos;est ouvert pour confirmer votre rendez-vous.
-                </p>
+                Vos informations ont été sauvegardées. L’un de nos agents vous appellera dans les plus brefs délais pour confirmer votre rendez-vous.   </p>
               </div>
             </div>
           </motion.div>

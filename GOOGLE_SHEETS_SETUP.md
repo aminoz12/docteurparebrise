@@ -29,21 +29,20 @@
 ## Step 4: Share Google Sheet with Service Account
 
 1. Create a new Google Sheet (or use existing)
-2. Name it "Rendez-vous" (or any name)
+2. Name the first sheet tab "Rendez-vous" (or any name)
 3. Create headers in row 1:
-   - Column A: Horodatage
-   - Column B: Service
-   - Column C: Date
-   - Column D: Heure
+   - Column A: Nom du client
+   - Column B: Numero du Telephone
+   - Column C: Service
+   - Column D: Date
    - Column E: Lieu
-   - Column F: Nom du client
-   - Column G: Téléphone du client
-   - Column H: Notes
-4. Click "Share" button
-5. Copy the **email address** from the JSON file (it looks like: `your-service@project.iam.gserviceaccount.com`)
-6. Paste it in the share dialog
-7. Give it "Editor" permission
-8. Click "Send"
+   - Column F: Notes
+4. Click "Share" button (top right)
+5. Open the downloaded JSON file from Step 3
+6. Copy the **email address** from the JSON file (looks like: `your-service@project.iam.gserviceaccount.com`)
+7. Paste it in the share dialog
+8. Give it "Editor" permission
+9. Click "Send" (or uncheck "Notify people" and click "Share")
 
 ## Step 5: Get Sheet ID
 
@@ -53,7 +52,7 @@
 
 ## Step 6: Add Environment Variables
 
-Create or update your `.env.local` file:
+Create or update your `.env` file (for local development):
 
 ```env
 GOOGLE_SHEET_ID=your_sheet_id_here
@@ -64,6 +63,7 @@ GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour private key here\n-----END
 **Important:** 
 - Copy the entire private key from the JSON file (including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`)
 - Keep the quotes and `\n` characters
+- For Netlify deployment, add these same variables in Netlify's environment variables settings (see NETLIFY_DEPLOYMENT.md)
 
 ## Step 7: Install Dependencies
 

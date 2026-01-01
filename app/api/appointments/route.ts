@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 
+export const dynamic = 'force-static';
+
 type AppointmentData = {
   service: string;
   date: string;

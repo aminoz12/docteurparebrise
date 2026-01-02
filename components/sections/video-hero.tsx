@@ -2,20 +2,44 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Phone, ArrowRight, Shield, Clock, Award } from 'lucide-react';
+import { Phone, ArrowRight, Shield, Clock, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export function VideoHero() {
   const [currentImage, setCurrentImage] = useState('/hero1.png');
+  const [showSecondContent, setShowSecondContent] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const goToPreviousSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const slides = [
+    { image: '/hero1.png', content: 'first' },
+    { image: '/hero2.png', content: 'second' }
+  ];
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentImage('/hero2.png');
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    setCurrentImage(slides[currentSlide].image);
+    setShowSecondContent(slides[currentSlide].content === 'second');
+  }, [currentSlide]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -68,46 +92,77 @@ export function VideoHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl drop-shadow-lg mb-1 md:mb-4">
-                  <span className="text-primary">DOCTEUR</span>{' '}
-                  <span className="text-white">PARE-BRISE</span>
-                </span>
-                <span className="block text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl drop-shadow-lg uppercase">
-                  VOTRE PARE-BRISE RÉPARÉ À{' '}
-                  <motion.span
-                    className="gradient-text-accent inline-block"
-                    animate={{
-                      y: [0, -10, 0, -8, 0, -6, 0],
-                      rotate: [0, -5, 5, -3, 3, 0],
-                      scale: [1, 1.1, 1, 1.05, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    0€
-                  </motion.span>
-                </span>
+                {showSecondContent ? (
+                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                    <span className="text-white font-black uppercase">REMPLACEZ VOTRE PAREBRISE</span>
+                    <br className="hidden sm:block" />
+                    <span className="text-white font-black uppercase">ET RECEVEZ </span>
+                    <span className="text-primary font-black uppercase">3 VITRES TEINTÉES</span>
+                    <span className="text-white font-black uppercase"> GRATUITES</span>
+                  </div>
+                ) : (
+                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                    <span className="gradient-text-accent font-black uppercase">Franchise offerte</span>
+                    <span className="text-white font-black uppercase"> + </span>
+                    <span className="text-white font-black uppercase">200€ de cadeaux !</span>
+                  </div>
+                )}
               </motion.h1>
 
               {/* Subheading */}
-              <motion.p
-                className="font-arthur-schwarz mx-auto max-w-3xl text-lg sm:text-xl md:text-2xl text-white/90 font-bold drop-shadow-lg"
+              <motion.div
+                className="mt-6 space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                Nous gérons tout avec votre assurance.
-              </motion.p>
+                {showSecondContent ? (
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl"></div>
+                    <p className="relative font-bebas-neue text-2xl sm:text-3xl md:text-4xl text-white font-normal text-center leading-tight tracking-wide uppercase">
+                      <span className="text-white/90">Offre limitée</span>
+                      <br />
+                      <span className="gradient-text-accent font-normal">Vitres teintées premium incluses</span>
+                    </p>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl"></div>
+                    <p className="relative font-bebas-neue text-2xl sm:text-3xl md:text-4xl text-white font-normal text-center leading-tight tracking-wide uppercase">
+                      <span className="text-white/90">Aucune démarche nécessaire</span>
+                      <br />
+                      <span className="text-accent font-normal">On s'occupe de tout pour vous</span>
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Benefits */}
+              {!showSecondContent && (
+                <motion.div
+                  className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mt-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
+                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">ZÉRO</span> <span className="text-white font-bebas-neue uppercase">frais</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
+                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">ZÉRO</span> <span className="text-white font-bebas-neue uppercase">stress</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
+                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">Satisfaction</span> <span className="text-white font-bebas-neue uppercase">garantie</span>
+                  </span>
+                </motion.div>
+              )}
 
               {/* CTA Buttons */}
               <motion.div
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
               >
                 <Link
                   href="/rendez-vous"
@@ -151,6 +206,29 @@ export function VideoHero() {
                   <span className="text-sm font-semibold">Intervention sous 24h</span>
                 </div>
               </motion.div>
+
+              {/* Navigation Controls */}
+              <motion.button
+                onClick={goToPreviousSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center rounded-full glass-dark p-3 text-white border-2 border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </motion.button>
+
+              <motion.button
+                onClick={goToNextSlide}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center rounded-full glass-dark p-3 text-white border-2 border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                aria-label="Next slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </motion.button>
             </motion.div>
           </div>
         </div>

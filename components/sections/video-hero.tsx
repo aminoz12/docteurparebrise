@@ -131,14 +131,14 @@ export function VideoHero() {
                     <span className="text-white font-black uppercase">REMPLACEZ VOTRE PAREBRISE</span>
                     <br className="hidden sm:block" />
                     <span className="text-white font-black uppercase">ET RECEVEZ </span>
-                    <span className="text-primary font-black uppercase">3 VITRES TEINTÉES</span>
+                    <span className="text-primary font-black uppercase">3 CARRE VITRES TEINTÉES</span>
                     <span className="text-white font-black uppercase"> GRATUITES</span>
                   </div>
                 ) : (
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
                     <span className="gradient-text-accent font-black uppercase">Franchise offerte</span>
                     <span className="text-white font-black uppercase"> + </span>
-                    <span className="text-white font-black uppercase">200€ de cadeaux !</span>
+                    <span className="text-white font-black uppercase">jusqu’à 200€ offre 💸</span>
                   </div>
                 )}
               </motion.h1>
@@ -210,11 +210,19 @@ export function VideoHero() {
                 </Link>
                 
                 <Link
-                  href="tel:+33661692360"
+                  href="https://wa.me/33661692360"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center rounded-2xl glass-dark px-10 py-5 text-lg font-n27 font-bold text-white border-2 border-white/30 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/50"
                 >
-                  <Phone className="mr-2 h-5 w-5" />
-                  Appeler maintenant
+                  <Image
+                    src="/sociale.png"
+                    alt="WhatsApp"
+                    width={20}
+                    height={20}
+                    className="mr-2"
+                  />
+                  Contacter Par WhatsApp
                 </Link>
               </motion.div>
 

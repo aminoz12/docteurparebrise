@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { siteConfig } from '@/lib/siteConfig';
-import { Phone, Mail, MapPin, Wrench, Calendar, Navigation, Clock, Shield, Car } from 'lucide-react';
+import { Phone, Mail, MapPin, Wrench, Calendar, Navigation, Clock, Shield, Car, Instagram, Facebook, Linkedin, Music } from 'lucide-react';
 import Image from 'next/image';
 
 export function SiteFooter() {
@@ -77,6 +77,49 @@ export function SiteFooter() {
                 Spécialiste pare-brise, vitrages, vitres teintées et rénovation de phares. 
                 Intervention rapide en atelier ou à domicile.
               </p>
+              
+              {/* Social Media Icons */}
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-white mb-4">Suivez-nous</h4>
+                <div className="flex gap-3">
+                  <a
+                    href="https://www.instagram.com/docteurparebrise"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 hover:bg-red-600/20 border border-white/20 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="w-5 h-5 text-white group-hover:text-red-500 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/docteurparebrise"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 hover:bg-red-600/20 border border-white/20 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="w-5 h-5 text-white group-hover:text-red-500 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.tiktok.com/@docteurparebrise"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 hover:bg-red-600/20 border border-white/20 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                    aria-label="TikTok"
+                  >
+                    <Music className="w-5 h-5 text-white group-hover:text-red-500 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/docteurparebrise"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 hover:bg-red-600/20 border border-white/20 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5 text-white group-hover:text-red-500 transition-colors" />
+                  </a>
+                </div>
+              </div>
               <div className="flex gap-4">
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <Shield className="w-4 h-4 text-red-500" />
@@ -213,6 +256,45 @@ export function SiteFooter() {
                 >
                   Confidentialité
                 </Link>
+              </div>
+              {/* Social Media Links in Bottom Bar */}
+              <div className="flex gap-3">
+                <a
+                  href="https://www.instagram.com/docteurparebrise"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+                </a>
+                <a
+                  href="https://www.facebook.com/docteurparebrise"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@docteurparebrise"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  aria-label="TikTok"
+                >
+                  <Music className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/docteurparebrise"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4 text-gray-400 group-hover:text-red-500 transition-colors" />
+                </a>
               </div>
             </div>
           </div>

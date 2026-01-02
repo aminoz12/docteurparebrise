@@ -24,8 +24,16 @@ export function VideoHero() {
   };
 
   const slides = [
-    { image: '/hero1.png', content: 'first' },
-    { image: '/hero2.png', content: 'second' }
+    { 
+      image: '/hero1.png', 
+      mobileImage: '/heromobile1.png',
+      content: 'first' 
+    },
+    { 
+      image: '/hero2.png', 
+      mobileImage: '/heromobile2.png',
+      content: 'second' 
+    }
   ];
 
   useEffect(() => {
@@ -52,20 +60,46 @@ export function VideoHero() {
           transition={{ duration: 1.5, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image
-            src={currentImage}
-            alt="Pare-brise professionnel"
-            fill
-            className="object-cover"
-            priority
-            quality={100}
-          />
+          <div className="absolute inset-0">
+            {/* Mobile Image */}
+            <div className="md:hidden absolute inset-0">
+              <Image
+                src={slides[currentSlide].mobileImage}
+                alt="Pare-brise professionnel"
+                fill
+                className="object-cover object-center"
+                priority
+                quality={100}
+                sizes="100vw"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  filter: 'none'
+                }}
+              />
+            </div>
+            {/* Desktop & Tablet Image */}
+            <div className="hidden md:block absolute inset-0">
+              <Image
+                src={slides[currentSlide].image}
+                alt="Pare-brise professionnel"
+                fill
+                className="object-cover object-center"
+                priority
+                quality={100}
+                sizes="100vw"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  filter: 'none'
+                }}
+              />
+            </div>
+          </div>
         </motion.div>
         {/* Enhanced overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
-        {/* Additional vignette effect */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-black/40" />
       </div>
 
       {/* Animated background elements */}
@@ -76,7 +110,7 @@ export function VideoHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full items-end justify-center pb-20 md:pb-16">
+      <div className="relative z-10 flex h-full items-start justify-center pt-20 md:pt-16 lg:pt-48">
         <div className="container-page mx-auto px-6 w-full">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div

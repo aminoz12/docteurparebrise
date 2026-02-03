@@ -20,7 +20,7 @@ export const siteConfig = {
   addressLine2: "95100 Argenteuil, France",
   /** Google Maps link for directions / live location */
   mapsUrl:
-    "https://www.google.com/maps?sca_esv=51db692ab24d98dd&sxsrf=ANbL-n58IU3gsZykQK__3GxX0FEhs6f1hQ:1770141919456&biw=1528&bih=740&aic=0&gs_lp=Egxnd3Mtd2l6LXNlcnAiFWRvY3RldXIgcGFyZSBicmlzZSBhcioCCAAyBxAAGIAEGBMyCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB4yCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB4yCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB5IuRVQrgJYrQ5wAHgCkAEAmAGUAqAB5QSqAQUwLjIuMbgBAcgBAPgBAZgCBKACgQXCAgQQABhHwgIFEAAYgATCAgYQABgWGB6YAwDiAwUSATEgQIgGAZAGCJIHBTEuMi4xoAe1FrIHBTAuMi4xuAf6BMIHAzItNMgHFYAIAA&um=1&ie=UTF-8&fb=1&gl=ma&sa=X&geocode=Kac0leywZeZHMQJKAj0Spjkt&daddr=47+Rue+du+Gibet,+95100+Argenteuil,+France",
+    "https://www.google.com/maps/place/Docteur+pare+Brise/@48.9377154,2.2165755,17z/data=!3m2!4b1!5s0x47e66420f6833117:0x881c0ce66699e39c!4m6!3m5!1s0x47e665b0ec9534a7:0x2d39a6123d024a02!8m2!3d48.9377154!4d2.2191504!16s%2Fg%2F11x8xhl0bb?hl=en&entry=ttu&g_ep=EgoyMDI2MDIwMS4wIKXMDSoASAFQAw%3D%3D",
 };
 
 export type SiteConfig = typeof siteConfig;

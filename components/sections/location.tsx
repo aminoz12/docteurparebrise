@@ -15,10 +15,13 @@ export function Location() {
 
     const googleMapsUrl = siteConfig.mapsUrl;
     
+    // Docteur Pare Brise location (Argenteuil)
+    const lat = 48.9377154;
+    const lng = 2.2191504;
     if (isIOS) {
       // Try Waze first, then Apple Maps, then Google Maps
-      const wazeUrl = 'waze://?ll=48.8566,2.3522&navigate=yes';
-      const appleMapsUrl = 'http://maps.apple.com/?q=48.8566,2.3522';
+      const wazeUrl = `waze://?ll=${lat},${lng}&navigate=yes`;
+      const appleMapsUrl = `http://maps.apple.com/?q=${lat},${lng}`;
       
       // Try to open Waze, fallback to Apple Maps, then Google Maps
       const wazeWindow = window.open(wazeUrl, '_blank');
@@ -34,7 +37,7 @@ export function Location() {
       }, 500);
     } else if (isAndroid) {
       // Try Waze first, then Google Maps
-      const wazeUrl = 'waze://?ll=48.8566,2.3522&navigate=yes';
+      const wazeUrl = `waze://?ll=${lat},${lng}&navigate=yes`;
       const wazeWindow = window.open(wazeUrl, '_blank');
       setTimeout(() => {
         if (!wazeWindow || wazeWindow.closed) {
@@ -103,7 +106,7 @@ export function Location() {
             {/* Google Maps Embed - Satellite View */}
             <div className="relative w-full h-[400px] md:h-[500px] bg-neutral-200">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937606!2d2.3522219!3d48.856614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUxJzIzLjgiTiAywrAyMScwOC4wIkU!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus&maptype=satellite"
+                src="https://www.google.com/maps?q=48.9377154,2.2191504&z=17&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -111,7 +114,7 @@ export function Location() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full"
-                title="Localisation de l'atelier"
+                title="Localisation de l'atelier Docteur Pare Brise"
               />
               {/* Click overlay to open in Google Maps */}
               <a

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Phone, ArrowRight, Shield, Clock, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { siteConfig } from '@/lib/siteConfig';
 
 export function VideoHero() {
   const [currentImage, setCurrentImage] = useState('/hero1.png');
@@ -110,7 +111,7 @@ export function VideoHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full items-start justify-center pt-20 md:pt-16 lg:pt-48">
+      <div className="relative z-10 flex h-full items-start justify-center pt-32 md:pt-16 lg:pt-48">
         <div className="container-page mx-auto px-6 w-full">
           <div className="max-w-6xl mx-auto text-center">
             <motion.div
@@ -210,7 +211,7 @@ export function VideoHero() {
                 </Link>
                 
                 <Link
-                  href="https://wa.me/33661692360"
+                  href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center rounded-2xl glass-dark px-10 py-5 text-lg font-n27 font-bold text-white border-2 border-white/30 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/50"

@@ -13,10 +13,14 @@ export const siteConfig = {
     "vitrage auto",
     "réparation impact pare-brise",
   ],
-  phone: "+33 6 61 69 23 60",
-  email: "contact@votre-parebrise.fr",
-  addressLine1: "123 Avenue de la Sécurité",
-  addressLine2: "75000 Paris, France",
+  phone: "+33 9 61 11 30 16",
+  whatsapp: "+33 6 61 69 23 60",
+  email: "parebrisedocteur@gmail.com",
+  addressLine1: "47 Rue du Gibet",
+  addressLine2: "95100 Argenteuil, France",
+  /** Google Maps link for directions / live location */
+  mapsUrl:
+    "https://www.google.com/maps?sca_esv=51db692ab24d98dd&sxsrf=ANbL-n58IU3gsZykQK__3GxX0FEhs6f1hQ:1770141919456&biw=1528&bih=740&aic=0&gs_lp=Egxnd3Mtd2l6LXNlcnAiFWRvY3RldXIgcGFyZSBicmlzZSBhcioCCAAyBxAAGIAEGBMyCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB4yCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB4yCBAAGBMYFhgeMggQABgTGBYYHjIIEAAYExgWGB5IuRVQrgJYrQ5wAHgCkAEAmAGUAqAB5QSqAQUwLjIuMbgBAcgBAPgBAZgCBKACgQXCAgQQABhHwgIFEAAYgATCAgYQABgWGB6YAwDiAwUSATEgQIgGAZAGCJIHBTEuMi4xoAe1FrIHBTAuMi4xuAf6BMIHAzItNMgHFYAIAA&um=1&ie=UTF-8&fb=1&gl=ma&sa=X&geocode=Kac0leywZeZHMQJKAj0Spjkt&daddr=47+Rue+du+Gibet,+95100+Argenteuil,+France",
 };
 
 export type SiteConfig = typeof siteConfig;

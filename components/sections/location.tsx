@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Navigation } from 'lucide-react';
 import Link from 'next/link';
+import { siteConfig } from '@/lib/siteConfig';
 
 export function Location() {
   // Function to open location in navigation apps
@@ -12,8 +13,7 @@ export function Location() {
     const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
     const isAndroid = /android/i.test(userAgent);
 
-    // Google Maps link
-    const googleMapsUrl = 'https://maps.app.goo.gl/uPZpSb7VAqtgJToeA';
+    const googleMapsUrl = siteConfig.mapsUrl;
     
     if (isIOS) {
       // Try Waze first, then Apple Maps, then Google Maps
@@ -115,7 +115,7 @@ export function Location() {
               />
               {/* Click overlay to open in Google Maps */}
               <a
-                href="https://maps.app.goo.gl/uPZpSb7VAqtgJToeA"
+                href={siteConfig.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 text-sm font-semibold text-neutral-900 hover:bg-white transition-colors shadow-lg"

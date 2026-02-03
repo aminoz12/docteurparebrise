@@ -67,7 +67,7 @@ export function FloatingNav() {
                 </Link>
               ))}
               <Link
-                href="tel:+33661692360"
+                href="tel:+33961113016"
                 className="flex items-center space-x-2 bg-primary text-white px-5 py-2.5 rounded-full hover:bg-primary/90 transition-all hover:scale-105 shadow-medium hover:shadow-glow"
               >
                 <Phone className="h-4 w-4" />
@@ -134,18 +134,18 @@ export function FloatingNav() {
                 transition={{ duration: 0.3, delay: 0.5 }}
               >
                 <a
-                  href="tel:+33661692360"
+                  href="tel:+33961113016"
                   className="flex items-center space-x-2 text-white hover:text-primary transition-colors"
                 >
                   <Phone className="h-5 w-5" />
                   <span>+33 6 61 69 23 60</span>
                 </a>
                 <a
-                  href="mailto:contact@parebrise-vip.fr"
+                  href="mailto:parebrisedocteur@gmail.com"
                   className="flex items-center space-x-2 text-white hover:text-primary transition-colors"
                 >
                   <Mail className="h-5 w-5" />
-                  <span>contact@parebrise-vip.fr</span>
+                  <span>parebrisedocteur@gmail.com</span>
                 </a>
                 <div className="flex items-center space-x-2 text-white">
                   <MapPin className="h-5 w-5" />

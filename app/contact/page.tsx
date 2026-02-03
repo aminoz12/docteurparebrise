@@ -14,11 +14,10 @@ export default function ContactPage() {
     `${siteConfig.addressLine1} ${siteConfig.addressLine2}`,
   );
   const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   const appleMapsUrl = `https://maps.apple.com/?q=${mapQuery}`;
   const wazeUrl = `https://waze.com/ul?q=${mapQuery}`;
 
-  const whatsappNumber = siteConfig.phone.replace(/[^0-9]/g, '');
+  const whatsappNumber = siteConfig.whatsapp.replace(/\D/g, '');
 
   return (
     <section className="section-y section-muted pt-24 md:pt-28">
@@ -119,7 +118,7 @@ export default function ContactPage() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  href={googleMapsUrl}
+                  href={siteConfig.mapsUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-primary hover:text-primary-foreground"

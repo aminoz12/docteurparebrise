@@ -55,7 +55,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           {/* Phone CTA - Desktop */}
           <a
-            href="tel:+33661692360"
+            href="tel:+33961113016"
             className="hidden items-center gap-2 rounded-xl bg-gradient-primary px-5 py-2.5 text-sm font-bold text-white shadow-md hover:shadow-glow transition-all duration-300 hover:scale-105 md:flex"
           >
             <Phone className="h-4 w-4" />
@@ -106,7 +106,7 @@ export function SiteHeader() {
             ))}
             <div className="pt-2 space-y-2 border-t border-white/20">
               <a
-                href="tel:+33661692360"
+                href="tel:+33961113016"
                 onClick={() => setOpen(false)}
                 className="flex items-center justify-center gap-2 rounded-xl bg-gradient-primary px-4 py-3 text-base font-bold text-white shadow-md"
               >

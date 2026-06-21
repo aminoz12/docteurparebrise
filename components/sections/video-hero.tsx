@@ -2,279 +2,132 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Phone, ArrowRight, Shield, Clock, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Check, ShieldCheck, Star, Clock } from 'lucide-react';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import { siteConfig } from '@/lib/siteConfig';
 
+const benefits = ['Zéro frais', 'Zéro stress', 'Satisfaction garantie'];
+
+const trust = [
+  { icon: Star, label: '4,9/5 sur 250+ avis' },
+  { icon: ShieldCheck, label: 'Garantie 2 ans' },
+  { icon: Clock, label: 'Intervention le jour même' },
+];
+
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export function VideoHero() {
-  const [currentImage, setCurrentImage] = useState('/hero1.png');
-  const [showSecondContent, setShowSecondContent] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const goToPreviousSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const slides = [
-    { 
-      image: '/hero1.png', 
-      mobileImage: '/heromobile1.png',
-      content: 'first' 
-    },
-    { 
-      image: '/hero2.png', 
-      mobileImage: '/heromobile2.png',
-      content: 'second' 
-    }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    setCurrentImage(slides[currentSlide].image);
-    setShowSecondContent(slides[currentSlide].content === 'second');
-  }, [currentSlide]);
-
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Image Background with rotation */}
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <motion.div
-          key={currentImage}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-          className="absolute inset-0"
-        >
-          <div className="absolute inset-0">
-            {/* Mobile Image */}
-            <div className="md:hidden absolute inset-0">
-              <Image
-                src={slides[currentSlide].mobileImage}
-                alt="Pare-brise professionnel"
-                fill
-                className="object-cover object-center"
-                priority
-                quality={100}
-                sizes="100vw"
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                  filter: 'none'
-                }}
-              />
-            </div>
-            {/* Desktop & Tablet Image */}
-            <div className="hidden md:block absolute inset-0">
-              <Image
-                src={slides[currentSlide].image}
-                alt="Pare-brise professionnel"
-                fill
-                className="object-cover object-center"
-                priority
-                quality={100}
-                sizes="100vw"
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                  filter: 'none'
-                }}
-              />
-            </div>
-          </div>
-        </motion.div>
-        {/* Enhanced overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
-      </div>
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 z-[1] overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-red-600/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl animate-pulse" />
+        <video
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          src="/hero.mp4"
+          poster="/hero-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+        {/* Cinematic overlay — deep gradient for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/45" />
+        <div className="absolute inset-0 bg-[radial-gradient(125%_95%_at_50%_115%,rgba(0,0,0,0.9)_0%,transparent_62%)]" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full items-start justify-center pt-32 md:pt-16 lg:pt-48">
-        <div className="container-page mx-auto px-6 w-full">
-          <div className="max-w-6xl mx-auto text-center">
-            <motion.div
-              className="space-y-3 md:space-y-8"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+      <div className="relative z-10 flex h-full items-center justify-center px-6 pt-20 pb-12">
+        <motion.div
+          className="w-full max-w-3xl text-center"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          {/* Heading */}
+          <motion.h1
+            variants={item}
+            className="flex flex-wrap items-baseline justify-center gap-x-3 font-display font-bold tracking-tight leading-[1.1] text-2xl sm:text-3xl md:text-4xl"
+          >
+            <span className="gradient-text-accent uppercase">Franchise offerte</span>
+            <span className="font-light text-white/70">+ jusqu’à</span>
+            <span className="font-extrabold text-white">200€</span>
+          </motion.h1>
+
+          {/* Subheading */}
+          <motion.p
+            variants={item}
+            className="mx-auto mt-6 max-w-xl font-display text-base font-light leading-relaxed text-white/75 sm:text-lg"
+          >
+            Aucune démarche nécessaire — on s’occupe de tout pour vous.
+          </motion.p>
+
+          {/* Benefit chips */}
+          <motion.div
+            variants={item}
+            className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
+          >
+            {benefits.map((b) => (
+              <span
+                key={b}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm font-medium text-white/90 backdrop-blur-md"
+              >
+                <Check className="h-3.5 w-3.5 text-accent" />
+                {b}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            variants={item}
+            className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row"
+          >
+            <Link
+              href="/rendez-vous"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-primary px-9 py-4 font-display text-base font-semibold uppercase tracking-wide text-white shadow-glow transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl sm:w-auto"
             >
-              {/* Main heading */}
-              <motion.h1
-                className="font-n27 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1]"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                {showSecondContent ? (
-                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                    <span className="text-white font-black uppercase">REMPLACEZ VOTRE PAREBRISE</span>
-                    <br className="hidden sm:block" />
-                    <span className="text-white font-black uppercase">ET RECEVEZ </span>
-                    <span className="text-primary font-black uppercase">3 CARRE VITRES TEINTÉES</span>
-                    <span className="text-white font-black uppercase"> GRATUITES</span>
-                  </div>
-                ) : (
-                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                    <span className="gradient-text-accent font-black uppercase">Franchise offerte</span>
-                    <span className="text-white font-black uppercase"> + </span>
-                    <span className="text-white font-black uppercase">jusqu’à 200€ offre 💸</span>
-                  </div>
-                )}
-              </motion.h1>
+              Prendre rendez-vous
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
 
-              {/* Subheading */}
-              <motion.div
-                className="mt-6 space-y-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                {showSecondContent ? (
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl"></div>
-                    <p className="relative font-bebas-neue text-2xl sm:text-3xl md:text-4xl text-white font-normal text-center leading-tight tracking-wide uppercase">
-                      <span className="text-white/90">Offre limitée</span>
-                      <br />
-                      <span className="gradient-text-accent font-normal">Vitres teintées premium incluses</span>
-                    </p>
-                  </div>
-                ) : (
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl"></div>
-                    <p className="relative font-bebas-neue text-2xl sm:text-3xl md:text-4xl text-white font-normal text-center leading-tight tracking-wide uppercase">
-                      <span className="text-white/90">Aucune démarche nécessaire</span>
-                      <br />
-                      <span className="text-accent font-normal">On s'occupe de tout pour vous</span>
-                    </p>
-                  </div>
-                )}
-              </motion.div>
+            <Link
+              href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-9 py-4 font-display text-base font-semibold uppercase tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-white/50 hover:bg-white/10 sm:w-auto"
+            >
+              <Image src="/sociale.png" alt="" width={20} height={20} aria-hidden="true" />
+              Contacter par WhatsApp
+            </Link>
+          </motion.div>
 
-              {/* Benefits */}
-              {!showSecondContent && (
-                <motion.div
-                  className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mt-12"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                >
-                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
-                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">ZÉRO</span> <span className="text-white font-bebas-neue uppercase">frais</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
-                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">ZÉRO</span> <span className="text-white font-bebas-neue uppercase">stress</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-sm sm:text-base md:text-lg">
-                    <span className="text-white">✔️</span> <span className="text-white font-bebas-neue uppercase">Satisfaction</span> <span className="text-white font-bebas-neue uppercase">garantie</span>
-                  </span>
-                </motion.div>
-              )}
-
-              {/* CTA Buttons */}
-              <motion.div
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-              >
-                <Link
-                  href="/rendez-vous"
-                  className="group relative inline-flex items-center justify-center rounded-2xl bg-gradient-primary px-10 py-5 text-lg font-n27 font-bold text-white shadow-glow overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Prendre rendez-vous
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
-                
-                <Link
-                  href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center rounded-2xl glass-dark px-10 py-5 text-lg font-n27 font-bold text-white border-2 border-white/30 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/50"
-                >
-                  <Image
-                    src="/sociale.png"
-                    alt="WhatsApp"
-                    width={20}
-                    height={20}
-                    className="mr-2"
-                  />
-                  Contacter Par WhatsApp
-                </Link>
-              </motion.div>
-
-              {/* Trust indicators */}
-              <motion.div
-                className="flex flex-wrap items-center justify-center gap-6 pt-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                <div className="flex items-center gap-2 text-white/90">
-                  <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                  <span className="text-sm font-semibold">4,9/5 sur 250+ avis</span>
-                </div>
-                <div className="h-4 w-px bg-white/30" />
-                <div className="flex items-center gap-2 text-white/90">
-                  <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                  <span className="text-sm font-semibold">Garantie 2 ans</span>
-                </div>
-                <div className="h-4 w-px bg-white/30" />
-                <div className="flex items-center gap-2 text-white/90">
-                  <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                  <span className="text-sm font-semibold">Intervention sous 24h</span>
-                </div>
-              </motion.div>
-
-              {/* Navigation Controls */}
-              <motion.button
-                onClick={goToPreviousSlide}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center rounded-full glass-dark p-3 text-white border-2 border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </motion.button>
-
-              <motion.button
-                onClick={goToNextSlide}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center rounded-full glass-dark p-3 text-white border-2 border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </motion.button>
-            </motion.div>
-          </div>
-        </div>
+          {/* Trust indicators */}
+          <motion.div
+            variants={item}
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-white/10 pt-7"
+          >
+            {trust.map(({ icon: Icon, label }) => (
+              <span key={label} className="flex items-center gap-2 text-white/70">
+                <Icon className="h-4 w-4 text-accent" />
+                <span className="font-display text-xs font-medium tracking-wide sm:text-sm">
+                  {label}
+                </span>
+              </span>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -48,10 +48,10 @@ export function AssuranceBanner() {
                   ease: "easeInOut",
                 }}
               >
-                0€
+                RIEN
               </motion.span>{' '}
-              À PAYER, ON S&apos;OCCUPE DE{' '}
-              <span className="text-accent">TOUT</span>.
+              À PAYER AVEC{' '}
+              <span className="text-accent">L&apos;ASSURANCE</span>
             </h2>
             <p className="text-base md:text-lg text-neutral-600 max-w-2xl mx-auto">
               Votre assurance prend tout en charge, franchise 100% garantise.            </p>

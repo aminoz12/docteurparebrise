@@ -201,6 +201,24 @@ export function SiteFooter() {
                     <p className="text-sm">{siteConfig.addressLine2}</p>
                   </div>
                 </div>
+                <div className="flex items-start gap-3 text-gray-300">
+                  <div className="flex-shrink-0 w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">Horaires</p>
+                    <ul className="mt-1 space-y-0.5 text-sm">
+                      {siteConfig.openingHours.map(({ day, hours }) => (
+                        <li key={day} className="flex justify-between gap-4">
+                          <span>{day}</span>
+                          <span className={hours === 'Fermé' ? 'text-gray-500' : ''}>
+                            {hours}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
 

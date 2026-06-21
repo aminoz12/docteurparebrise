@@ -23,6 +23,9 @@ export default function PolitiqueConfidentialitePage() {
             respecter votre vie privée. Cette politique explique comment nous
             collectons, utilisons et protégeons vos informations.
           </p>
+          <p className="text-xs text-neutral-500">
+            Dernière mise à jour : 21 juin 2026
+          </p>
         </header>
 
         <section aria-labelledby="collecte">

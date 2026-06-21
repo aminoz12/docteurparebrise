@@ -34,6 +34,7 @@ export function RendezvousForm() {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [notes, setNotes] = useState('');
+  const [company, setCompany] = useState(''); // honeypot — must stay empty
   const [status, setStatus] = useState<'idle' | 'success' | 'loading' | 'error'>('idle');
 
   // Redirect to contact page after 5 seconds when success
@@ -54,7 +55,7 @@ export function RendezvousForm() {
 
     setStatus('loading');
 
-    const payload: ReservationPayload = {
+    const payload: ReservationPayload & { company?: string } = {
       service,
       date,
       time,
@@ -62,6 +63,7 @@ export function RendezvousForm() {
       customerName: customerName || undefined,
       customerPhone: customerPhone || undefined,
       notes: notes || undefined,
+      company: company || undefined,
     };
 
     try {
@@ -113,7 +115,20 @@ export function RendezvousForm() {
       >
         <div className="space-y-2 mb-6">
           <h2 className="text-2xl font-black uppercase text-neutral-900 font-jura">Planifier votre rendez-vous</h2>
-       
+
+        </div>
+
+        {/* Honeypot field — hidden from users, bots tend to fill it */}
+        <div className="absolute left-[-9999px] top-[-9999px]" aria-hidden="true">
+          <label htmlFor="company">Ne pas remplir</label>
+          <input
+            id="company"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+          />
         </div>
 
         {/* Service Selection */}

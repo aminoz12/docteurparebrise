@@ -24,8 +24,8 @@ const badges = [
   },
   {
     icon: Clock3,
-    label: 'Intervention sous 24h',
-    description: 'Disponibilité rapide pour vous dépanner sans attendre.',
+    label: 'Intervention le jour même',
+    description: 'Possibilité d’intervenir dans les heures qui suivent votre demande.',
     color: 'accent',
   },
 ];

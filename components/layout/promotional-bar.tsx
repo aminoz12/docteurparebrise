@@ -4,8 +4,9 @@ import Image from 'next/image';
 
 export function PromotionalBar() {
   const promotions = [
-    'RIEN À PAYER ! DÉPOSEZ VOTRE VOITURE AVEC L\'ASSURANCE, REPARTEZ CE SOIR AVEC TOUT RÉPARÉ !',
+    'RIEN A AVANCER !',
     '50€ CASH POUR CHAQUE AMI PARRAINÉ !',
+    'JUSQU’À 200€ OFFRE 💸',
   ];
 
   return (

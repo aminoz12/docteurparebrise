@@ -9,6 +9,8 @@ type AppointmentData = {
   customerName?: string;
   customerPhone?: string;
   notes?: string;
+  /** Honeypot field — must stay empty. Bots fill it in. */
+  company?: string;
 };
 
 // Initialize Google Sheets API
@@ -151,6 +153,11 @@ async function ensureHeaders(sheets: any, spreadsheetId: string, sheetName: stri
 export async function POST(request: NextRequest) {
   try {
     const data: AppointmentData = await request.json();
+
+    // Honeypot: if the hidden field is filled, it's a bot. Pretend success and drop it.
+    if (data.company && data.company.trim() !== '') {
+      return NextResponse.json({ success: true });
+    }
 
     // Validate required fields
     if (!data.service || !data.date || !data.time) {
@@ -302,56 +309,6 @@ export async function POST(request: NextRequest) {
     const errorMessage = error?.message || 'Failed to save appointment';
     return NextResponse.json(
       { error: errorMessage },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET() {
-  try {
-    const sheets = await getSheetsClient();
-    const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-
-    if (!spreadsheetId) {
-      return NextResponse.json(
-        { error: 'Google Sheet ID not configured' },
-        { status: 500 }
-      );
-    }
-
-    // Get the sheet name
-    const { name: sheetName } = await getSheetInfo(sheets, spreadsheetId);
-
-    // Get all appointments
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: `${sheetName}!A:F`,
-    });
-
-    const rows = response.data.values || [];
-    
-    // Skip header row
-    // Column order: Nom du client, Numero du Telephone, Service, Date, Lieu, Notes
-    const appointments = rows.slice(1).map((row) => {
-      const dateTime = row[3] || '';
-      const [date, time] = dateTime.split(' ') || [dateTime, ''];
-      
-      return {
-        customerName: row[0] || '',
-        customerPhone: row[1] || '',
-        service: row[2] || '',
-        date: date,
-        time: time,
-        location: row[4] || '',
-        notes: row[5] || '',
-      };
-    });
-
-    return NextResponse.json({ appointments });
-  } catch (error) {
-    console.error('Error fetching appointments:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch appointments' },
       { status: 500 }
     );
   }

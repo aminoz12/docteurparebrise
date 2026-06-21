@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Accordion } from '@/components/ui/accordion';
+import { FaqJsonLd } from '@/components/seo/json-ld';
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -49,6 +50,7 @@ const faqItems = [
 export default function FAQPage() {
   return (
     <section className="section-y section-muted">
+      <FaqJsonLd items={faqItems} />
       <div className="container-page space-y-8">
         <header className="max-w-2xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-600">

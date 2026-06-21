@@ -6,6 +6,12 @@ export function TawkToScript() {
   const propertyId = '6954a49d77947219771f1c9d';
   const widgetId = '1jdpa61o4';
 
+  // Only load the third-party chat widget in production — it pollutes the dev
+  // console (e.g. the spurious "Console Error: true") and isn't needed locally.
+  if (process.env.NODE_ENV !== 'production') {
+    return null;
+  }
+
   return (
     <Script id="tawkto-script" strategy="lazyOnload">
       {`

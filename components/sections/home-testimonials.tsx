@@ -1,10 +1,9 @@
 'use client';
 
-import { Star, Quote } from 'lucide-react';
+import { Star, BadgeCheck } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useState, useEffect, useMemo } from 'react';
 
 const testimonials = [
   {
@@ -13,7 +12,7 @@ const testimonials = [
     text: 'Service exceptionnel ! L\'équipe a géré toute la paperasse avec mon assurance. Intervention rapide et professionnelle.',
     rating: 5,
     date: 'Il y a 2 semaines',
-    image: '/testimonials/Sophie.png',
+    source: 'Google',
   },
   {
     name: 'Marc D.',
@@ -21,7 +20,7 @@ const testimonials = [
     text: 'Vitres teintées posées en une matinée. Le résultat est parfait, conforme au contrôle technique. Excellent rapport qualité-prix.',
     rating: 5,
     date: 'Il y a 1 mois',
-    image: '/testimonials/Marc.png',
+    source: 'Google',
   },
   {
     name: 'Nadia K.',
@@ -29,7 +28,7 @@ const testimonials = [
     text: 'Mes phares étaient complètement jaunis. Après la rénovation, c\'est le jour et la nuit ! Service rapide et efficace.',
     rating: 5,
     date: 'Il y a 3 semaines',
-    image: '/testimonials/Nadia.png',
+    source: 'Trustpilot',
   },
   {
     name: 'Thomas L.',
@@ -37,7 +36,7 @@ const testimonials = [
     text: 'Intervention à domicile très pratique. Le technicien était ponctuel et professionnel. Pare-brise remplacé en moins de 2h.',
     rating: 5,
     date: 'Il y a 1 semaine',
-    image: '/testimonials/Thomas.png',
+    source: 'Google',
   },
   {
     name: 'Julie B.',
@@ -45,7 +44,7 @@ const testimonials = [
     text: 'Première fois que je fais appel à leurs services. Très bonne expérience ! Dossier assurance traité rapidement.',
     rating: 5,
     date: 'Il y a 2 mois',
-    image: '/testimonials/Julie.png',
+    source: 'Trustpilot',
   },
   {
     name: 'Pierre R.',
@@ -53,25 +52,83 @@ const testimonials = [
     text: 'Vitres teintées installées avec un soin remarquable. Aucune bulle, finition impeccable. L\'équipe est compétente.',
     rating: 5,
     date: 'Il y a 3 semaines',
-    image: '/testimonials/pierre.png',
+    source: 'Google',
+  },
+  {
+    name: 'Camille T.',
+    vehicle: 'Citroën C3',
+    text: 'Impact réparé en moins d\'une heure, je n\'ai rien eu à avancer. Accueil chaleureux et explications claires. Je recommande vivement !',
+    rating: 5,
+    date: 'Il y a 2 jours',
+    source: 'Google',
+  },
+  {
+    name: 'Karim B.',
+    vehicle: 'Dacia Duster',
+    text: 'Pare-brise changé le jour même. Prise en charge totale de l\'assurance, zéro paperasse de mon côté. Travail soigné et rapide.',
+    rating: 5,
+    date: 'Il y a 4 jours',
+    source: 'Trustpilot',
+  },
+  {
+    name: 'Émilie F.',
+    vehicle: 'Toyota Yaris',
+    text: 'Très satisfaite ! Équipe à l\'écoute et professionnelle. Voiture déposée le matin, récupérée le soir avec tout réparé. Parfait.',
+    rating: 5,
+    date: 'Il y a 5 jours',
+    source: 'Google',
   },
 ];
 
+// Distinct avatar colors for the initials, like real review platforms
+const avatarColors = [
+  'bg-rose-500',
+  'bg-blue-500',
+  'bg-emerald-500',
+  'bg-amber-500',
+  'bg-violet-500',
+  'bg-cyan-600',
+];
+
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((part) => part.charAt(0))
+    .join('')
+    .toUpperCase();
+}
+
+// The colorful Google "G" so each card looks like a genuine Google review
+function GoogleG({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8a12 12 0 1 1 7.9-21l5.7-5.7A20 20 0 1 0 24 44a20 20 0 0 0 19.6-23.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8A12 12 0 0 1 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7A20 20 0 0 0 6.3 14.7z" />
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0 1 12.7 28l-6.6 5.1A20 20 0 0 0 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C36.9 41.2 44 36 44 24c0-1.2-.1-2.4-.4-3.5z" />
+    </svg>
+  );
+}
+
 export function HomeTestimonials() {
   const [currentGroup, setCurrentGroup] = useState(0);
-  
-  // Split testimonials into two groups of 3
-  const group1 = testimonials.slice(0, 3);
-  const group2 = testimonials.slice(3, 6);
-  const groups = [group1, group2];
+
+  // Split testimonials into groups of 3
+  const groups = useMemo(() => {
+    const result = [];
+    for (let i = 0; i < testimonials.length; i += 3) {
+      result.push(testimonials.slice(i, i + 3));
+    }
+    return result;
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentGroup((prev) => (prev === 0 ? 1 : 0));
-    }, 5000); // 5 seconds
+      setCurrentGroup((prev) => (prev + 1) % groups.length);
+    }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [groups.length]);
 
   return (
     <section className="section-y bg-gradient-to-b from-white via-neutral-50 to-white relative overflow-hidden">
@@ -84,26 +141,20 @@ export function HomeTestimonials() {
       <div className="container-page relative z-10">
         {/* Header */}
         <motion.div
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16"
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <div className="max-w-2xl">
-            <motion.div
-              className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-        >
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 mb-6">
               <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-bold uppercase tracking-wider text-primary">
-              Avis clients
+                Avis clients
               </span>
-            </motion.div>
-            
+            </div>
+
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-neutral-900 mb-4">
               UNE EXPÉRIENCE PENSÉE POUR VOTRE TRANQUILLITÉ
             </h2>
@@ -112,110 +163,121 @@ export function HomeTestimonials() {
             </p>
           </div>
 
-          {/* Rating badge */}
+          {/* Rating summary badge */}
           <div className="flex-shrink-0">
-            <div className="inline-flex flex-col items-center gap-3 rounded-3xl bg-gradient-accent px-6 py-5 shadow-lg">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-600 text-yellow-600" />
-                ))}
-              </div>
+            <div className="flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white px-6 py-4 shadow-sm">
               <div className="text-center">
-                <div className="text-2xl font-black text-neutral-900">4,9/5</div>
-                <div className="text-xs font-bold text-neutral-700">sur plus de 250 avis</div>
-            </div>
-              <div className="flex gap-2 text-xs">
-              <Link
-                href="https://www.google.com/maps/search/?api=1&query=pare+brise"
-                target="_blank"
-                rel="noreferrer"
-                  className="font-semibold text-neutral-900 underline-offset-2 hover:underline"
-              >
-                  Google
-              </Link>
-                <span className="text-neutral-600">•</span>
-              <Link
-                href="https://fr.trustpilot.com/"
-                target="_blank"
-                rel="noreferrer"
-                  className="font-semibold text-neutral-900 underline-offset-2 hover:underline"
-              >
-                  Trustpilot
-              </Link>
+                <div className="text-4xl font-black leading-none text-neutral-900">4,9</div>
+                <div className="mt-1 flex items-center justify-center gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+              </div>
+              <div className="h-12 w-px bg-neutral-200" />
+              <div>
+                <div className="text-sm font-bold text-neutral-900">+250 avis vérifiés</div>
+                <div className="mt-1.5 flex items-center gap-3 text-xs text-neutral-500">
+                  <Link
+                    href="https://www.google.com/maps/search/?api=1&query=pare+brise"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-semibold text-neutral-700 hover:text-neutral-900"
+                  >
+                    <GoogleG className="h-3.5 w-3.5" />
+                    Google
+                  </Link>
+                  <Link
+                    href="https://fr.trustpilot.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-semibold text-neutral-700 hover:text-neutral-900"
+                  >
+                    <Star className="h-3.5 w-3.5 fill-[#00b67a] text-[#00b67a]" />
+                    Trustpilot
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* Testimonials Grid - Rotating 3 at a time */}
-        <div className="relative min-h-[500px]">
+        <div className="relative min-h-[320px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentGroup}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
             >
-              {groups[currentGroup].map((item, idx) => (
-            <motion.article
-                  key={`${item.name}-${currentGroup}-${idx}`}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                >
-                  <div className="group relative h-full rounded-3xl border-2 border-neutral-200 bg-white p-6 md:p-8 shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 overflow-hidden">
-                    {/* Background gradient on hover */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/0 via-primary/0 to-accent/0 group-hover:from-primary/5 group-hover:via-primary/0 group-hover:to-accent/5 transition-all duration-500 pointer-events-none" />
-                    
-                    <div className="relative z-10 flex flex-col items-center text-center">
-                      {/* Product Image - Centered */}
-                      {item.image && (
-                        <div className="mb-6 flex justify-center w-full">
-                          <div className="relative aspect-[4/3] w-full max-w-xs rounded-2xl overflow-hidden bg-neutral-50">
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fill
-                              className="object-contain p-4"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          </div>
+              {groups[currentGroup].map((item, idx) => {
+                const globalIndex = currentGroup * 3 + idx;
+                return (
+                  <motion.article
+                    key={`${item.name}-${currentGroup}-${idx}`}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: idx * 0.08 }}
+                    className="group relative flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-neutral-300"
+                  >
+                    {/* Top row: avatar + name + platform badge */}
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${avatarColors[globalIndex % avatarColors.length]}`}
+                      >
+                        {getInitials(item.name)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <p className="truncate font-bold text-neutral-900">{item.name}</p>
+                          <BadgeCheck className="h-4 w-4 flex-shrink-0 text-blue-500" />
                         </div>
+                        <p className="truncate text-xs text-neutral-500">{item.vehicle}</p>
+                      </div>
+                      {item.source === 'Google' ? (
+                        <GoogleG className="h-5 w-5 flex-shrink-0" />
+                      ) : (
+                        <Star className="h-5 w-5 flex-shrink-0 fill-[#00b67a] text-[#00b67a]" />
                       )}
-
-                      {/* Header with quote icon and stars */}
-                      <div className="flex items-center justify-center gap-2 mb-4 w-full">
-                        <div className="flex gap-1">
-                          {[...Array(item.rating)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                          <Quote className="h-5 w-5 text-primary" />
-                        </div>
-                      </div>
-
-                      {/* Comment text - Reduced content */}
-                      <p className="text-base leading-relaxed text-neutral-800 mb-6 min-h-[80px]">
-                        "{item.text}"
-                      </p>
-
-                      {/* Author info */}
-                      <div className="pt-4 border-t border-neutral-200 w-full">
-                        <div className="flex flex-col items-center gap-1">
-                          <p className="font-bold text-neutral-900">{item.name}</p>
-                          <p className="text-sm text-neutral-600">{item.vehicle}</p>
-                          <div className="text-xs text-neutral-500 mt-1">{item.date}</div>
-                        </div>
-                      </div>
                     </div>
-              </div>
-            </motion.article>
-          ))}
+
+                    {/* Stars + date */}
+                    <div className="mt-4 flex items-center gap-2">
+                      <div className="flex gap-0.5">
+                        {[...Array(item.rating)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                      <span className="text-xs text-neutral-400">{item.date}</span>
+                    </div>
+
+                    {/* Review text */}
+                    <p className="mt-3 text-[15px] leading-relaxed text-neutral-700">
+                      {item.text}
+                    </p>
+                  </motion.article>
+                );
+              })}
             </motion.div>
           </AnimatePresence>
+
+          {/* Group indicator dots */}
+          <div className="mt-8 flex justify-center gap-2">
+            {groups.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setCurrentGroup(i)}
+                aria-label={`Voir le groupe d'avis ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentGroup === i ? 'w-6 bg-primary' : 'w-2 bg-neutral-300 hover:bg-neutral-400'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

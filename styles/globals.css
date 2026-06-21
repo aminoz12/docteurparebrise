@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Inter+Display:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
 
 /* Documan font removed - using Inter as primary font */
 
@@ -105,6 +105,17 @@ a:focus-visible {
 
 .font-arthur-schwarz {
   font-family: "Arthur Schwarz", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Modern display font for headings/hero */
+.font-display {
+  font-family: "Sora", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Condensed display font for accents/labels */
+.font-bebas-neue {
+  font-family: "Bebas Neue", "Sora", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0.02em;
 }
 
 /* Modern utility classes */
@@ -264,7 +275,7 @@ a:focus-visible {
   }
 
   .animate-scroll {
-    animation: scroll 40s linear infinite;
+    animation: scroll 15s linear infinite;
     display: flex;
     width: fit-content;
   }

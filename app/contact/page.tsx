@@ -103,12 +103,16 @@ export default function ContactPage() {
                 Horaires d&apos;ouverture
               </h3>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-neutral-700">
-                <span>Lundi – Vendredi</span>
-                <span className="text-right">8h30 – 12h30 / 14h – 18h30</span>
-                <span>Samedi</span>
-                <span className="text-right">9h – 13h (sur rendez-vous)</span>
-                <span>Dimanche</span>
-                <span className="text-right">Fermé</span>
+                {siteConfig.openingHours.map(({ day, hours }) => (
+                  <span key={day} className="contents">
+                    <span>{day}</span>
+                    <span
+                      className={`text-right ${hours === 'Fermé' ? 'text-neutral-400' : ''}`}
+                    >
+                      {hours}
+                    </span>
+                  </span>
+                ))}
               </div>
             </div>
 

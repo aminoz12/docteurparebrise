@@ -4,7 +4,9 @@ import { siteConfig } from "@/lib/siteConfig";
 import { TawkToScript } from "@/components/layout/tawk-to-script";
 import { PromotionalBar } from "@/components/layout/promotional-bar";
 import { FloatingNav } from "@/components/layout/floating-nav";
+import { WhatsAppFloat } from "@/components/layout/whatsapp-float";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { BusinessJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +18,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
@@ -23,6 +29,18 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ["/logo.png"],
   },
 };
 
@@ -36,6 +54,7 @@ export default function RootLayout({
       <body
         className="bg-background text-foreground antialiased flex min-h-screen flex-col font-sans"
       >
+        <BusinessJsonLd />
         <TawkToScript />
         <PromotionalBar />
         <FloatingNav />
@@ -45,6 +64,7 @@ export default function RootLayout({
         <div className="w-full mt-auto">
           <SiteFooter />
         </div>
+        <WhatsAppFloat />
       </body>
     </html>
   );

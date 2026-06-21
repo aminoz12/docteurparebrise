@@ -24,6 +24,9 @@ export default function MentionsLegalesPage() {
             {siteConfig.name}. Vous trouverez ci-dessous les informations
             légales et notre approche en matière de protection des données.
           </p>
+          <p className="text-xs text-neutral-500">
+            Dernière mise à jour : 21 juin 2026
+          </p>
         </header>
 
         <section aria-labelledby="editeur">
@@ -40,6 +43,10 @@ export default function MentionsLegalesPage() {
             <br />
             {siteConfig.addressLine2}
             <br />
+            SIREN : 940 492 770
+            <br />
+            SIRET (siège) : 940 492 770 00018
+            <br />
             Tél : {siteConfig.phone}
             <br />
             Email : {siteConfig.email}
@@ -54,10 +61,11 @@ export default function MentionsLegalesPage() {
             2. Hébergeur
           </h2>
           <p className="mt-2">
-            Le site est hébergé par un prestataire spécialisé en hébergement
-            web, situé au sein de l&apos;Union européenne. Les données techniques
-            nécessaires au bon fonctionnement du site (logs, mesures
-            d&apos;audience anonymisées) sont conservées pour une durée limitée.
+            Le site est hébergé par Netlify, Inc.
+            <br />
+            512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis
+            <br />
+            Site web : https://www.netlify.com
           </p>
         </section>
 

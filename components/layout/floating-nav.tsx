@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import Image from 'next/image';
+import { siteConfig } from '@/lib/siteConfig';
 
 export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const telHref = `tel:${siteConfig.phone.replace(/\s/g, '')}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +58,7 @@ export function FloatingNav() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-10">
+            <div className="hidden md:flex items-center space-x-10 md:mr-6 lg:mr-16">
               {navItems.map((item) => (
                 <Link
                   key={`${item.href}-${item.label}`}
@@ -67,7 +69,7 @@ export function FloatingNav() {
                 </Link>
               ))}
               <Link
-                href="tel:+33961113016"
+                href={telHref}
                 className="flex items-center space-x-2 bg-primary text-white px-5 py-2.5 rounded-full hover:bg-primary/90 transition-all hover:scale-105 shadow-medium hover:shadow-glow"
               >
                 <Phone className="h-4 w-4" />
@@ -134,22 +136,22 @@ export function FloatingNav() {
                 transition={{ duration: 0.3, delay: 0.5 }}
               >
                 <a
-                  href="tel:+33961113016"
+                  href={telHref}
                   className="flex items-center space-x-2 text-white hover:text-primary transition-colors"
                 >
                   <Phone className="h-5 w-5" />
-                  <span>+33 6 61 69 23 60</span>
+                  <span>{siteConfig.phone}</span>
                 </a>
                 <a
-                  href="mailto:parebrisedocteur@gmail.com"
+                  href={`mailto:${siteConfig.email}`}
                   className="flex items-center space-x-2 text-white hover:text-primary transition-colors"
                 >
                   <Mail className="h-5 w-5" />
-                  <span>parebrisedocteur@gmail.com</span>
+                  <span>{siteConfig.email}</span>
                 </a>
                 <div className="flex items-center space-x-2 text-white">
                   <MapPin className="h-5 w-5" />
-                  <span>Paris, France</span>
+                  <span>{siteConfig.addressLine2}</span>
                 </div>
               </motion.div>
 

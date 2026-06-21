@@ -3,7 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    // Optimized at serve time by @netlify/plugin-nextjs (WebP/AVIF + resizing)
+    unoptimized: false,
+    formats: ['image/avif', 'image/webp'],
     qualities: [75, 100]
   }
 };

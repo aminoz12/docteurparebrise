@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { siteConfig } from "@/lib/siteConfig";
-import { TawkToScript } from "@/components/layout/tawk-to-script";
 import { PromotionalBar } from "@/components/layout/promotional-bar";
 import { FloatingNav } from "@/components/layout/floating-nav";
 import { WhatsAppFloat } from "@/components/layout/whatsapp-float";
@@ -55,7 +54,6 @@ export default function RootLayout({
         className="bg-background text-foreground antialiased flex min-h-screen flex-col font-sans"
       >
         <BusinessJsonLd />
-        <TawkToScript />
         <PromotionalBar />
         <FloatingNav />
         <main className="flex-1 w-full pt-[120px] md:pt-[144px]">

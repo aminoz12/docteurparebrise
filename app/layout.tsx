@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/lib/siteConfig";
 import { PromotionalBar } from "@/components/layout/promotional-bar";
@@ -64,6 +65,7 @@ export default function RootLayout({
         </div>
         <WhatsAppFloat />
       </body>
+      <GoogleAnalytics gaId="G-824PBH7EQK" />
     </html>
   );
 }
